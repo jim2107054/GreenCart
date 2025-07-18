@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import {Toaster} from "react-hot-toast";
+import Footer from "./components/Footer";
 
 const App = () => {
   // we are in the seller dashboard or not. if the path is /seller, we are in the seller dashboard
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
         </Routes>
       </div>
+      {!isSellerPath && <Footer />}
     </div>
   );
 };
