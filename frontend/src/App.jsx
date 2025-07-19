@@ -4,15 +4,22 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import {Toaster} from "react-hot-toast";
 import Footer from "./components/Footer";
+import { useAppContext } from "./context/AppContext";
+import Login from "./components/Login";
 
 const App = () => {
   // we are in the seller dashboard or not. if the path is /seller, we are in the seller dashboard
   // const isSellerPath = window.location.pathname.includes('/seller');
   const isSellerPath = useLocation().pathname.includes("seller");
 
+  const {showUserLogin} = useAppContext();
+
   return (
     <div>
       {isSellerPath ? null : <Navbar />}
+      {showUserLogin && <Login />}
+      
+      {/* Toaster for notifications */}
       <Toaster
         position="top-center"
         reverseOrder={false}
