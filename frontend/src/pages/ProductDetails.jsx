@@ -89,15 +89,22 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
-            {/* Related Products Section */}
-            <div>
-                <h2 className="text-2xl text-center font-medium mt-16">Related Products</h2>
-                <div className='w-24 h-0.5 bg-primary mx-auto mb-4'></div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6 mt-5">
-                    {relatedProducts.map((item, index) => (
-                        <ProductCard key={index} product={item} />
-                    ))}
+            {/*-----------Related Products Section---------*/}
+            <div className='flex flex-col items-center mt-20'>
+                <div className='flex flex-col items-center w-max'>
+                    <h2 className="text-2xl text-center font-medium mt-16">Related Products</h2>
+                    <div className='w-24 h-0.5 bg-primary mx-auto mb-4'></div>
                 </div>
+                <div className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6 mt-5">
+                    {relatedProducts.filter((product)=> product.inStock).map((item, index) => {
+                        if (item._id !== product._id) {
+                            return <ProductCard key={index} product={item} />;
+                        }
+                    })}
+                </div>
+                <button 
+                onClick={() => {navigate("/products"); scrollTo(0, 0)}}
+                className='mx-auto cursor-pointer px-12 my-16 py-2.5 border rounded text-green-500 hover:bg-green-600 hover:text-white transition'>See more</button>
             </div>
         </div>
     );
