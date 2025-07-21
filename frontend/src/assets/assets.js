@@ -222,6 +222,7 @@ export const dummyProducts = [
     _id: "gd47g34h",
     name: "Tomato 1 kg",
     category: "Vegetables",
+    weight: "1 kg",
     price: 40,
     offerPrice: 35,
     image: [tomato_image,tomato_image,tomato_image,tomato_image],
