@@ -12,13 +12,14 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import AddAddress from "./pages/AddAddress";
 import MyOrders from "./pages/MyOrders";
+import SellerLogin from './components/seller/SellerLogin';
 
 const App = () => {
   // we are in the seller dashboard or not. if the path is /seller, we are in the seller dashboard
   // const isSellerPath = window.location.pathname.includes('/seller');
   const isSellerPath = useLocation().pathname.includes("seller");
 
-  const {showUserLogin} = useAppContext();
+  const {showUserLogin, isSeller} = useAppContext();
 
   return (
     <div>
@@ -70,6 +71,9 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-address" element={<AddAddress />} />
           <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/seller" element={isSeller ? null : <SellerLogin/>}>
+
+          </Route>
         </Routes>
       </div>
       {!isSellerPath && <Footer />}
