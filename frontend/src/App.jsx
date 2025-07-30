@@ -14,6 +14,9 @@ import AddAddress from "./pages/AddAddress";
 import MyOrders from "./pages/MyOrders";
 import SellerLogin from './components/seller/SellerLogin';
 import SellerLayout from "./pages/seller/SellerLayout";
+import AddProduct from "./pages/seller/AddProduct";
+import ProductList from "./pages/seller/ProductList";
+import Orders from "./pages/seller/Orders";
 
 const App = () => {
   // we are in the seller dashboard or not. if the path is /seller, we are in the seller dashboard
@@ -73,7 +76,9 @@ const App = () => {
           <Route path="/add-address" element={<AddAddress />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/seller" element={isSaller ? <SellerLayout/> : <SellerLogin/>}>
-
+            <Route index element={<AddProduct/>} />
+            <Route path="product-list" element={<ProductList/>} />
+            <Route path="orders" element={<Orders/>} />
           </Route>
         </Routes>
       </div>
