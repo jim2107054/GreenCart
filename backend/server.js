@@ -2,10 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import connectDB from './configs/db.js';
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// Connect to MongoDB
+await connectDB();
 
 const allowedOrigins = [
     'http://localhost:5173'
