@@ -78,3 +78,65 @@ export const register = async (req, res) =>{
         });
     }
 }
+
+// Login User : /api/user/login
+export const login = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        if(!email || !password){
+            return res.json({
+                success: false,
+                message: "Missing email or password"
+            })
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            return res.json({
+                success: false,
+                message: "Invalid password"
+            });
+        }
+
+        // Create token
+        const token = jwt.sign(
+            {id: user._id},
+            process.env.JWT_SECRET,
+            {expiresIn: '7d'}
+        );
+
+        // Set token in cookie
+        res.cookie('token', token, {
+            httpOnly: true, // Prevent client-side access to the cookie
+            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', // Prevent CSRF attacks
+            maxAge: 7 * 24 * 60 * 60 * 1000 // Cookie expiration time (7 days)
+        });
+
+        return res.json({
+            success: true,
+            message: "Login successful",
+            token,
+            user: {
+                name: user.name,
+                email: user.email
+            }
+        });
+
+    } catch (error) {
+        console.log(error.message)
+        return res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}
