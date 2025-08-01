@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import connectDB from './configs/db.js';
+import userRouter from './routes/userRoute.js';
 dotenv.config();
 
 const app = express();
@@ -23,9 +24,12 @@ app.use(cors({
     credentials: true // Allow credentials to be sent
 }))
 
+app.use('/api/user', userRouter); // User-related routes
+
 app.get('/',(req,res)=>{
     res.send('Welcome to GreenCart Backend');
 })
+
 
 
 app.listen(PORT, () => {
