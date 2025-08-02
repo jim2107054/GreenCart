@@ -140,3 +140,29 @@ export const login = async (req, res) => {
         })
     }
 }
+
+// Check Authentication Status : /api/user/is-auth
+export const isAuth = async (req, res) => {
+    try {
+        const {userId} = req.body;
+        if(!userId){
+            return res.json({
+                success: false,
+                message: "User not authenticated"
+            });
+        }
+
+        const user = await User.findById(userId).select("-password"); // Exclude password from the response
+        return res.json({
+            success: true,
+            message: "User is authenticated",
+            user
+        });
+    } catch (error) {
+        console.log(error.message)
+        return res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}
