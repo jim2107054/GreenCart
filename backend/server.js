@@ -6,6 +6,7 @@ import connectDB from './configs/db.js';
 import userRouter from './routes/userRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
 import connectCloudinary from './configs/cloudinary.js';
+import productRouter from './routes/productRoute.js';
 dotenv.config();
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(cors({
 
 app.use('/api/user', userRouter); // User-related routes
 app.use('/api/seller', sellerRouter); // Seller-related routes
+app.use('/api/product', productRouter); // Product-related routes
 
 app.get('/',(req,res)=>{
     res.send('Welcome to GreenCart Backend');
