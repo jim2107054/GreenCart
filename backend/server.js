@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './configs/db.js';
 import userRouter from './routes/userRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
+import connectCloudinary from './configs/cloudinary.js';
 dotenv.config();
 
 const app = express();
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 4000;
 
 // Connect to MongoDB
 await connectDB();
+// Connect to Cloudinary
+await connectCloudinary();
 
 const allowedOrigins = [
     'http://localhost:5173'
